@@ -268,7 +268,6 @@ export default function sortableContainer(
         const dimensions = getHelperDimensions({index, node, collection});
 
         this.node = node;
-        console.log('containerr', node, this.scrollContainer);
         this.margin = margin;
         this.gridGap = gridGap;
         this.width = dimensions.width;
@@ -639,7 +638,6 @@ export default function sortableContainer(
       const prevIndex = this.newIndex;
       this.newIndex = null;
 
-      console.log('this', this.containerBoundingRect);
       for (let i = 0, len = nodes.length; i < len; i++) {
         const {node} = nodes[i];
         const {index} = node.sortableInfo;
@@ -677,7 +675,6 @@ export default function sortableContainer(
 
         // Get a reference to the next and previous node
         const nextNode = i < nodes.length - 1 && nodes[i + 1];
-        const prevNode = i > 0 && nodes[i - 1];
 
         // Also cache the next node's edge offset if needed.
         // We need this for calculating the animation in a grid setup
@@ -713,11 +710,11 @@ export default function sortableContainer(
           setTransitionDuration(node, transitionDuration);
         }
 
-        const controlledIndex = index;
-        const containetIndex = this.index;
+        const elementIndex = index;
+        const dragginElementIndex = this.index;
         if (this.axis.x && this.axis.y) {
           const firstCheck =
-            controlledIndex < containetIndex &&
+            elementIndex < dragginElementIndex &&
             ((sortingOffset.left + windowScrollDelta.left <= edgeOffset.left &&
               sortingOffset.top + windowScrollDelta.top - height / 2 <=
                 edgeOffset.top) ||
@@ -725,7 +722,7 @@ export default function sortableContainer(
                 edgeOffset.top);
 
           const secondCheck =
-            controlledIndex > containetIndex &&
+            elementIndex > dragginElementIndex &&
             ((sortingOffset.left + windowScrollDelta.left >= edgeOffset.left &&
               sortingOffset.top + windowScrollDelta.top >=
                 edgeOffset.top - height / 2) ||
